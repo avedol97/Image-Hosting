@@ -36,10 +36,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/test1").hasRole("USER")
-                .antMatchers("/test2").hasAnyRole("USER","ADMIN")
+                .antMatchers("/upload").hasRole("ADMIN")
+                .antMatchers("/gallery").hasAnyRole("USER")
                 .and()
-                .formLogin().permitAll();
+                .formLogin().permitAll()
+                .and()
+                .csrf().disable(); //zabezpieczenie zeby nie łaczyć się zzewnetrzego hosta ;) httpBassic ->postman
+
     }
 
     @Bean
